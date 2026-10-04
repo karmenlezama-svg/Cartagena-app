@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cartagena: Relax & Rumba</title>
+    <!-- Tailwind CSS para diseño rápido y estilización móvil -->
+    <script src="https://jsdelivr.net"></script>
+    <!-- Iconos Lucide para una interfaz limpia -->
+    <script src="https://unpkg.com"></script>
+    <style>
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+    </style>
+</head>
+<body class="bg-slate-900 text-slate-100 min-h-screen font-sans pb-24">
+
+    <!-- Encabezado Principal -->
+    <header class="bg-gradient-to-r from-amber-500 to-fuchsia-600 p-6 text-center shadow-lg rounded-b-3xl">
+        <h1 class="text-2xl font-black tracking-wide uppercase">Cartagena VIP</h1>
+        <p class="text-sm text-amber-100 font-medium">Relax de Día • Rumba de Noche</p>
+    </header>
+
+    <!-- CONTENEDOR PRINCIPAL -->
+    <main class="max-w-md mx-auto p-4 mt-2">
+
+        <!-- PESTAÑA 1: ITINERARIO -->
+        <section id="itinerario" class="tab-content active space-y-4">
+            <h2 class="text-xl font-bold text-amber-400 flex items-center gap-2"><i data-lucide="calendar"></i> Tu Ruta Optimizada</h2>
+            
+            <!-- Tarjeta Día 1 -->
+            <div class="bg-slate-800 p-4 rounded-2xl border border-slate-700 shadow-sm">
+                <div class="flex justify-between items-center mb-3">
+                    <span class="bg-amber-500/20 text-amber-400 text-xs font-bold px-3 py-1 rounded-full">DÍA 1: Transición Relax</span>
+                    <input type="checkbox" class="w-5 h-5 rounded accent-fuchsia-500">
+                </div>
+                <div class="space-y-2 text-sm text-slate-300">
+                    <p><strong>☀️ 09:00 - Sol Pacífico:</strong> Camina o toma un taxi corto hacia la <strong>Playa de Castillogrande</strong>. Cero acoso de vendedores.</p>
+                    <p><strong>🌙 21:00 - Pre-Copeo & Salsa:</strong> Ve a la Plaza de la Trinidad en Getsemaní y remata bailando en el icónico <strong>Café Havana</strong>.</p>
+                </div>
+            </div>
+
+            <!-- Tarjeta Día 2 -->
+            <div class="bg-slate-800 p-4 rounded-2xl border border-slate-700 shadow-sm">
+                <div class="flex justify-between items-center mb-3">
+                    <span class="bg-fuchsia-500/20 text-fuchsia-400 text-xs font-bold px-3 py-1 rounded-full">DÍA 2: Isla y Rumba Intensa</span>
+                    <input type="checkbox" class="w-5 h-5 rounded accent-fuchsia-500">
+                </div>
+                <div class="space-y-2 text-sm text-slate-300">
+                    <p><strong>☀️ 10:00 - VIP Day Club:</strong> Lancha rápida hacia un club de playa en <strong>Tierra Bomba</strong> (Makani o Blue Apple).</p>
+                    <p><strong>🌙 22:00 - La Zona Roja de la Fiesta:</strong> Recorre la vibrante <strong>Calle del Arsenal</strong> para bailar crossover comercial.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- PESTAÑA 2: MAPA Y LUGARES -->
+        <section id="mapas" class="tab-content space-y-4">
+            <h2 class="text-xl font-bold text-fuchsia-400 flex items-center gap-2"><i data-lucide="map-pin"></i> Navegación Rápida</h2>
+            <p class="text-xs text-slate-400">Presiona cualquier locación para abrir la ruta directa en tu GPS:</p>
+            
+            <div class="grid grid-cols-1 gap-2">
+                <a href="https://google.com" target="_blank" class="bg-slate-800 p-4 rounded-xl border border-slate-700 flex justify-between items-center hover:bg-slate-750 transition">
+                    <div>
+                        <p class="font-bold text-amber-400 text-sm">Playa de Castillogrande</p>
+                        <p class="text-xs text-slate-400">Zona de relax diurno a 5 min del hotel</p>
+                    </div>
+                    <i data-lucide="navigation" class="text-slate-400 w-5 h-5"></i>
+                </a>
+                <a href="https://google.com" target="_blank" class="bg-slate-800 p-4 rounded-xl border border-slate-700 flex justify-between items-center hover:bg-slate-750 transition">
+                    <div>
+                        <p class="font-bold text-fuchsia-400 text-sm">Café Havana (Getsemaní)</p>
+                        <p class="text-xs text-slate-400">Salsa en vivo y cócteles premium</p>
+                    </div>
+                    <i data-lucide="navigation" class="text-slate-400 w-5 h-5"></i>
+                </a>
+                <a href="https://google.com" target="_blank" class="bg-slate-800 p-4 rounded-xl border border-slate-700 flex justify-between items-center hover:bg-slate-750 transition">
+                    <div>
+                        <p class="font-bold text-fuchsia-400 text-sm">Calle del Arsenal</p>
+                        <p class="text-xs text-slate-400">Discotecas crossover una tras otra</p>
+                    </div>
+                    <i data-lucide="navigation" class="text-slate-400 w-5 h-5"></i>
+                </a>
+            </div>
+        </section>
+
+        <!-- PESTAÑA 3: CALCULADORA / PRECIOS -->
+        <section id="supervivencia" class="tab-content space-y-4">
+            <h2 class="text-xl font-bold text-emerald-400 flex items-center gap-2"><i data-lucide="shield-alert"></i> Guía Anti-Estafas</h2>
+            
+            <div class="bg-emerald-950/40 border border-emerald-500/30 p-4 rounded-xl space-y-2 text-xs text-emerald-300">
+                <p class="font-bold text-sm text-emerald-400 mb-1">💡 Precios de Referencia (COP):</p>
+                <p>• Alquiler de Carpa + Sillas: \$35.000 - \$50.000</p>
+                <p>• Cerveza Nacional en la playa: \$6.000 - \$8.000</p>
+                <p>• Taxi Bocagrande al Centro Histórico: \$10.000 - \$15.000</p>
+                <p class="text-[10px] text-emerald-400/70 mt-2 italic">*Pregunta SIEMPRE el precio exacto antes de consumir o aceptar un servicio.</p>
+            </div>
+
+            <!-- Calculadora de Propinas Local -->
+            <div class="bg-slate-800 p-4 rounded-xl border border-slate-700 space-y-3">
+                <h3 class="text-sm font-bold text-slate-200">Calculadora de Propina Sugerida (10%)</h3>
+                <div>
+                    <label class="block text-xs text-slate-400 mb-1">Monto de la cuenta (COP):</label>
+                    <input type="number" id="billAmount" placeholder="Ej: 50000" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2 text-sm text-slate-100 focus:outline-none focus:border-emerald-500" oninput="calculateTip()">
+                </div>
+                <div class="bg-slate-900 p-3 rounded-lg flex justify-between text-sm font-semibold">
+                    <span class="text-slate-400">Propina (10%):</span>
+                    <span id="tipResult" class="text-emerald-400">\$0</span>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- BARRA DE NAVEGACIÓN INFERIOR (ESTILO APP MÓVIL) -->
+    <nav class="fixed bottom-0 left-0 right-0 bg-slate-950/95 backdrop-blur-md border-t border-slate-800 py-3 px-6 flex justify-around items-center text-slate-400 shadow-2xl z-50">
+        <button onclick="switchTab('itinerario')" id="btn-itinerario" class="flex flex-col items-center gap-1 text-amber-500 font-semibold transition text-xs">
+            <i data-lucide="calendar" class="w-5 h-5"></i>
+            <span>Ruta</span>
+        </button>
+        <button onclick="switchTab('mapas')" id="btn-mapas" class="flex flex-col items-center gap-1 hover:text-slate-200 transition text-xs">
+            <i data-lucide="map" class="w-5 h-5"></i>
+            <span>Mapas</span>
+        </button>
+        <button onclick="switchTab('supervivencia')" id="btn-supervivencia" class="flex flex-col items-center gap-1 hover:text-slate-200 transition text-xs">
+            <i data-lucide="shield-check" class="w-5 h-5"></i>
+            <span>Tips</span>
+        </button>
+    </nav>
+
+    <!-- LÓGICA DE CONTROLADORES DE LA APP -->
+    <script>
+        // Inicializar iconos de Lucide
+        lucide.createIcons();
+
+        // Control de pestañas de navegación
+        function switchTab(tabId) {
+            // Ocultar contenidos
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+            // Mostrar pestaña seleccionada
+            document.getElementById(tabId).classList.add('active');
+
+            // Resetear estilos de botones de navegación
+            const buttons = {
+                itinerario: { id: 'btn-itinerario', color: 'text-amber-500' },
+                mapas: { id: 'btn-mapas', color: 'text-fuchsia-500' },
+                supervivencia: { id: 'btn-supervivencia', color: 'text-emerald-500' }
+            };
+
+            Object.keys(buttons).forEach(key => {
+                const btn = document.getElementById(buttons[key].id);
+                btn.className = "flex flex-col items-center gap-1 hover:text-slate-200 transition text-xs";
+                if(key === tabId) {
+                    btn.classList.add(buttons[key].color, "font-semibold");
+                }
+            });
+        }
+
+        // Lógica de la calculadora de propinas
+        function calculateTip() {
+            const amount = parseFloat(document.getElementById('billAmount').value) || 0;
+            const tip = amount * 0.10;
+            document.getElementById('tipResult').innerText = `$${tip.toLocaleString('es-CO')}`;
+        }
+    </script>
+</body>
+</html>
