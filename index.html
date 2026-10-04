@@ -4,150 +4,170 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Viajes VIP: Relax & Rumba</title>
-    <!-- Solución al error de carga: Importación clásica y compatible de Tailwind CSS -->
-    <script src="https://tailwindcss.com"></script>
-    <!-- Iconos Lucide -->
-    <script src="https://unpkg.com"></script>
     <style>
+        /* ESTILOS BASE - MODO OSCURO PREMIUM NATIVO */
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+        body { bg-color: #020617; background-color: #020617; color: #f1f5f9; min-height: 100vh; padding-bottom: 90px; }
+        
+        /* ENCABEZADO */
+        header { background: linear-gradient(135deg, #f59e0b, #d946ef); padding: 24px 16px; text-align: center; border-bottom-left-radius: 24px; border-bottom-right-radius: 24px; box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3); }
+        header h1 { font-size: 24px; font-weight: 900; letter-spacing: 1px; text-transform: uppercase; color: #ffffff; margin-bottom: 4px; }
+        header p { font-size: 13px; color: #fef3c7; font-weight: 500; }
+
+        /* CONTENEDOR */
+        main { max-width: 450px; margin: 0 auto; padding: 16px; }
+
+        /* SECCIONES Y PESTAÑAS */
         .tab-content { display: none; }
         .tab-content.active { display: block; }
+
+        /* CAJAS Y TARJETAS */
+        .card { background-color: #0f172a; padding: 20px; rounded-radius: 16px; border-radius: 16px; border: 1px solid #1e293b; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); margin-bottom: 16px; }
+        .card-label-dia { background-color: rgba(245, 158, 11, 0.15); color: #fbbf24; font-size: 11px; font-weight: 700; padding: 4px 12px; border-radius: 9999px; display: inline-block; margin-bottom: 12px; }
+        .card-label-noche { background-color: rgba(217, 70, 239, 0.15); color: #e879f9; font-size: 11px; font-weight: 700; padding: 4px 12px; border-radius: 9999px; display: inline-block; margin-bottom: 12px; }
+        .card-label-tips { background-color: rgba(16, 185, 129, 0.15); color: #34d399; font-size: 11px; font-weight: 700; padding: 4px 12px; border-radius: 9999px; display: inline-block; margin-bottom: 12px; }
+        .card h3 { font-size: 16px; font-weight: 700; color: #e2e8f0; margin-bottom: 6px; }
+        .card p { font-size: 13px; color: #94a3b8; line-height: 1.5; }
+
+        /* FORMULARIO BÚSQUEDA */
+        .search-box { display: flex; gap: 8px; margin-top: 8px; }
+        .search-box input { flex: 1; background-color: #020617; border: 1px solid #334155; border-radius: 12px; padding: 12px; color: #ffffff; font-size: 14px; outline: none; transition: border-color 0.2s; }
+        .search-box input:focus { border-color: #d946ef; }
+        .search-box button { background-color: #d946ef; border: none; border-radius: 12px; padding: 0 16px; color: white; font-weight: 700; cursor: pointer; transition: background-color 0.2s; font-size: 16px; }
+        .search-box button:hover { background-color: #c084fc; }
+
+        /* LOADER */
+        .hidden { display: none !important; }
+        .loader-container { text-align: center; padding: 32px 0; }
+        .spinner { border: 3px solid rgba(217, 70, 239, 0.1); width: 36px; height: 36px; border-radius: 50%; border-left-color: #d946ef; animation: spin 1s linear infinite; margin: 0 auto 12px auto; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .loader-container p { font-size: 12px; color: #94a3b8; }
+
+        /* BOTONES DE ENLACE */
+        .btn-map { width: 100%; background-color: #1e293b; border: 1px solid #334155; padding: 16px; border-radius: 12px; text-align: left; cursor: pointer; display: flex; justify-content: space-between; align-items: center; text-decoration: none; }
+        .btn-map-text h4 { font-size: 14px; font-weight: 700; color: #fbbf24; margin-bottom: 2px; }
+        .btn-map-text p { font-size: 12px; color: #94a3b8; }
+        .btn-map-arrow { color: #64748b; font-size: 18px; font-weight: bold; }
+
+        /* BARRA NAVEGACIÓN INFERIOR COMODIDAD MÓVIL */
+        nav { position: fixed; bottom: 0; left: 0; right: 0; background-color: rgba(2, 6, 23, 0.95); border-top: 1px solid #1e293b; padding: 12px 24px; display: flex; justify-content: space-around; backdrop-filter: blur(10px); z-index: 100; }
+        nav button { background: none; border: none; color: #64748b; font-size: 11px; font-weight: 500; display: flex; flex-direction: column; align-items: center; gap: 4px; cursor: pointer; transition: color 0.2s; }
+        nav button.active-itinerario { color: #f59e0b; font-weight: 700; }
+        nav button.active-mapas { color: #d946ef; font-weight: 700; }
+        nav button.active-tips { color: #10b981; font-weight: 700; }
+        .nav-icon { font-size: 18px; margin-bottom: 2px; }
     </style>
 </head>
-<body class="bg-slate-950 text-slate-100 min-h-screen font-sans pb-24">
+<body>
 
-    <!-- Encabezado Dinámico -->
-    <header class="bg-gradient-to-r from-amber-500 to-fuchsia-600 p-6 text-center shadow-2xl rounded-b-3xl">
-        <h1 class="text-2xl font-black tracking-wide uppercase flex justify-center items-center gap-2">
-            <i data-lucide="sparkles"></i> <span id="app-title">Cartagena VIP</span>
-        </h1>
-        <p class="text-sm text-amber-100 font-medium">Agente Experto en Relax de Día y Rumba de Noche</p>
+    <!-- Encabezado Fijo -->
+    <header>
+        <h1 id="app-title">📍 Cartagena VIP</h1>
+        <p>Agente Experto en Relax de Día y Rumba de Noche</p>
     </header>
 
-    <!-- CONTENEDOR PRINCIPAL -->
-    <main class="max-w-md mx-auto p-4 mt-2">
+    <!-- CONTENEDOR PRINCIPAL DE PANTALLAS -->
+    <main>
 
         <!-- PESTAÑA 1: AGENTE INTELIGENTE -->
-        <section id="agente" class="tab-content active space-y-4">
-            <div class="bg-slate-900 p-4 rounded-2xl border border-slate-800 shadow-xl space-y-3">
-                <label class="block text-sm font-bold text-amber-400">¿A qué destino viajamos hoy?</label>
-                <div class="flex gap-2">
-                    <input type="text" id="destination-input" placeholder="Ej: Medellín, Cancún, Miami..." class="w-full bg-slate-950 border border-slate-700 rounded-xl p-3 text-sm text-slate-100 focus:outline-none focus:border-fuchsia-500 transition">
-                    <button onclick="askAgent()" class="bg-fuchsia-600 hover:bg-fuchsia-700 font-bold px-4 rounded-xl transition flex items-center justify-center">
-                        <i data-lucide="send" class="w-5 h-5"></i>
-                    </button>
+        <section id="agente" class="tab-content active">
+            <div class="card">
+                <h3 style="color: #fbbf24;">¿A qué destino viajamos hoy?</h3>
+                <div class="search-box">
+                    <input type="text" id="destination-input" placeholder="Ej: Medellín, Cancún, Miami, Ibiza...">
+                    <button onclick="askAgent()">Ir</button>
                 </div>
             </div>
 
-            <!-- Pantalla de carga (Oculta por defecto) -->
-            <div id="loading" class="hidden text-center py-8 space-y-3">
-                <div class="animate-spin rounded-full h-10 w-10 border-b-2 border-fuchsia-500 mx-auto"></div>
-                <p class="text-xs text-slate-400 font-medium">El agente está diseñando tu rumba y descanso...</p>
+            <!-- Pantalla de Carga -->
+            <div id="loading" class="loader-container hidden">
+                <div class="spinner"></div>
+                <p>El agente está diseñando tu rumba y descanso...</p>
             </div>
 
-            <!-- Contenedor del Itinerario Generado por la IA -->
-            <div id="itinerary-results" class="space-y-4">
-                <!-- Itinerario Inicial por defecto (Cartagena) -->
-                <div class="bg-slate-900 p-5 rounded-2xl border border-slate-800 shadow-md">
-                    <div class="flex justify-between items-center mb-3">
-                        <span class="bg-amber-500/20 text-amber-400 text-xs font-bold px-3 py-1 rounded-full">☀️ RECOMENDACIÓN DE DÍA</span>
-                    </div>
-                    <p class="text-sm text-slate-300 font-semibold mb-1">Playa de Castillogrande o Clubes de Tierra Bomba</p>
-                    <p class="text-xs text-slate-400">Zonas exclusivas, tranquilas y libres del acoso masivo de vendedores. Ideal para leer, descansar y tomar cócteles frente al mar.</p>
+            <!-- Bloques del Itinerario -->
+            <div id="itinerary-results">
+                <div class="card">
+                    <span class="card-label-dia">☀️ RECOMENDACIÓN DE DÍA</span>
+                    <h3>Playa de Castillogrande o Clubes de Tierra Bomba</h3>
+                    <p>Zonas exclusivas, tranquilas y libres del acoso masivo de vendedores. Ideal para leer, descansar y tomar cócteles frente al mar en paz.</p>
                 </div>
 
-                <div class="bg-slate-900 p-5 rounded-2xl border border-slate-800 shadow-md">
-                    <div class="flex justify-between items-center mb-3">
-                        <span class="bg-fuchsia-500/20 text-fuchsia-400 text-xs font-bold px-3 py-1 rounded-full">🌙 RECOMENDACIÓN DE NOCHE</span>
-                    </div>
-                    <p class="text-sm text-slate-300 font-semibold mb-1">Getsemaní (Plaza de la Trinidad) & Calle del Arsenal</p>
-                    <p class="text-xs text-slate-400">Comienza con cervezas artesanales al aire libre en la plaza y remata bailando salsa en Café Havana o rumba crossover comercial en las discotecas de la mítica Calle del Arsenal.</p>
+                <div class="card">
+                    <span class="card-label-noche">🌙 RECOMENDACIÓN DE NOCHE</span>
+                    <h3>Getsemaní (Plaza de la Trinidad) & Calle del Arsenal</h3>
+                    <p>Comienza con cervezas al aire libre en la bohemia plaza y remata bailando salsa en Café Havana o rumba crossover comercial en las discotecas de la mítica Calle del Arsenal.</p>
                 </div>
             </div>
         </section>
 
-        <!-- PESTAÑA 2: MAPA DINÁMICO -->
-        <section id="mapas" class="tab-content space-y-4">
-            <h2 class="text-xl font-bold text-fuchsia-400 flex items-center gap-2"><i data-lucide="map-pin"></i> GPS del Destino</h2>
-            <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 text-center space-y-3">
-                <p class="text-sm text-slate-300">Presiona el botón para ubicar las zonas recomendadas directamente en tu mapa:</p>
-                <button onclick="openMap()" class="w-full bg-slate-800 border border-slate-700 p-4 rounded-xl flex justify-between items-center hover:bg-slate-750 transition text-left">
-                    <div>
-                        <p id="map-target-title" class="font-bold text-amber-400 text-sm">Explorar Cartagena</p>
-                        <p class="text-xs text-slate-400">Abrir coordenadas de rumba y playa</p>
-                    </div>
-                    <i data-lucide="navigation" class="text-slate-400 w-5 h-5"></i>
-                </button>
+        <!-- PESTAÑA 2: MAPAS -->
+        <section id="mapas" class="tab-content">
+            <div class="card" style="margin-bottom: 12px;">
+                <h3 style="color: #d946ef; margin-bottom: 8px;">GPS de Destino</h3>
+                <p>Presiona el botón inferior para abrir las coordenadas geográficas de rumba y playas recomendadas en tu mapa de navegación:</p>
             </div>
+            
+            <a href="#" id="map-button" onclick="openMap(event)" class="btn-map">
+                <div class="btn-map-text">
+                    <h4 id="map-target-title">Explorar Cartagena</h4>
+                    <p>Abrir coordenadas de rumba y playa</p>
+                </div>
+                <div class="btn-map-arrow">➔</div>
+            </a>
         </section>
 
-        <!-- PESTAÑA 3: PRECIOS Y SEGURIDAD -->
-        <section id="supervivencia" class="tab-content space-y-4">
-            <h2 class="text-xl font-bold text-emerald-400 flex items-center gap-2"><i data-lucide="shield-alert"></i> Consejos del Agente</h2>
-            <div class="bg-emerald-950/30 border border-emerald-500/20 p-4 rounded-xl space-y-3 text-xs text-emerald-300">
-                <p class="font-bold text-sm text-emerald-400">🛡️ Reglas de Oro para el Viajero:</p>
-                <p class="flex items-start gap-2">⏱️ <span>Negocia y confirma el precio total de cualquier servicio, carpa o bebida <strong>antes</strong> de consumir.</span></p>
-                <p class="flex items-start gap-2">🚗 <span>Utiliza aplicaciones de transporte privado (Uber/InDrive) para moverte de noche de forma segura hacia las zonas de fiesta.</span></p>
-                <p class="flex items-start gap-2">💎 <span>No aceptes muestras "gratis" ni masajes de prueba en zonas de playa pública urbana.</span></p>
+        <!-- PESTAÑA 3: SEGURIDAD Y TIPS -->
+        <section id="supervivencia" class="tab-content">
+            <div class="card">
+                <span class="card-label-tips">🛡️ REGLAS DE ORO DEL VIAJERO</span>
+                <h3 style="color: #34d399; margin-top: 4px; margin-bottom: 10px;">Evita Contratiempos</h3>
+                <p style="margin-bottom: 10px;">• <strong>Precios:</strong> Negocia y confirma el valor total exacto de cualquier carpa, silla o consumo <strong>antes</strong> de usarlo.</p>
+                <p style="margin-bottom: 10px;">• <strong>Transporte:</strong> Usa plataformas digitales (Uber/InDrive) de noche para moverte seguro hacia las zonas de fiesta.</p>
+                <p>• <strong>Playa Pública:</strong> Rechaza amablemente masajes "de prueba" u obsequios de comida, ya que luego intentarán cobrártelos a precios muy altos.</p>
             </div>
         </section>
 
     </main>
 
-    <!-- BARRA DE NAVEGACIÓN INFERIOR (ESTILO APP MÓVIL DE LUJO) -->
-    <nav class="fixed bottom-0 left-0 right-0 bg-slate-950/90 backdrop-blur-lg border-t border-slate-800 py-3 px-6 flex justify-around items-center text-slate-400 shadow-2xl z-50">
-        <button onclick="switchTab('agente')" id="btn-agente" class="flex flex-col items-center gap-1 text-amber-500 font-semibold transition text-xs">
-            <i data-lucide="bot" class="w-5 h-5"></i>
+    <!-- BARRA DE NAVEGACIÓN INFERIOR FIJA -->
+    <nav>
+        <button onclick="switchTab('agente')" id="btn-agente" class="active-itinerario">
+            <span class="nav-icon">🤖</span>
             <span>Agente IA</span>
         </button>
-        <button onclick="switchTab('mapas')" id="btn-mapas" class="flex flex-col items-center gap-1 hover:text-slate-200 transition text-xs">
-            <i data-lucide="map" class="w-5 h-5"></i>
+        <button onclick="switchTab('mapas')" id="btn-mapas">
+            <span class="nav-icon">🗺️</span>
             <span>Mapas</span>
         </button>
-        <button onclick="switchTab('supervivencia')" id="btn-supervivencia" class="flex flex-col items-center gap-1 hover:text-slate-200 transition text-xs">
-            <i data-lucide="shield-check" class="w-5 h-5"></i>
+        <button onclick="switchTab('supervivencia')" id="btn-supervivencia">
+            <span class="nav-icon">🛡️</span>
             <span>Tips</span>
         </button>
     </nav>
 
-    <!-- SCRIPT DE INTELIGENCIA DE LA APP -->
+    <!-- PROGRAMACIÓN LOGICA DE LA APLICACIÓN -->
     <script>
         let currentDestination = "Cartagena";
 
-        // Inicializar iconos estéticos de Lucide
-        lucide.createIcons();
-
-        // Control de navegación entre pestañas móviles
+        // Cambiar entre pantallas de la App móvil
         function switchTab(tabId) {
             document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
             document.getElementById(tabId).classList.add('active');
 
-            const buttons = {
-                agente: { id: 'btn-agente', color: 'text-amber-500' },
-                mapas: { id: 'btn-mapas', color: 'text-fuchsia-500' },
-                supervivencia: { id: 'btn-supervivencia', color: 'text-emerald-500' }
-            };
+            // Limpiar clases de botones
+            const btnAgente = document.getElementById('btn-agente');
+            const btnMapas = document.getElementById('btn-mapas');
+            const btnTips = document.getElementById('btn-supervivencia');
+            
+            btnAgente.className = "";
+            btnMapas.className = "";
+            btnTips.className = "";
 
-            Object.keys(buttons).forEach(key => {
-                const btn = document.getElementById(buttons[key].id);
-                btn.className = "flex flex-col items-center gap-1 hover:text-slate-200 transition text-xs";
-                if(key === tabId) {
-                    btn.classList.add(buttons[key].color, "font-semibold");
-                }
-            });
+            if (tabId === 'agente') btnAgente.className = "active-itinerario";
+            if (tabId === 'mapas') btnMapas.className = "active-mapas";
+            if (tabId === 'supervivencia') btnTips.className = "active-tips";
         }
 
-        // Conexión en tiempo real con el Agente de Inteligencia Artificial (Llama 3 API de forma abierta y segura)
+        // Conexión segura con el Agente de Inteligencia Artificial
         async function askAgent() {
-            const destInput = document.getElementById('destination-input').value.trim();
-            if (!destInput) return alert("Por favor ingresa un destino válido.");
-
-            currentDestination = destInput;
-            document.getElementById('loading').classList.remove('hidden');
-            document.getElementById('itinerary-results').innerHTML = '';
-
-            // Configuración del prompt experto en viajes
-            const systemPrompt = "Eres un agente experto en viajes globales. Tu única función es estructurar un plan de viaje conciso enfocado exclusivamente en dos categorías: 1) Actividades diurnas de máximo descanso y relajación (playas VIP, lagos, clubes tranquilos sin vendedores molestos), y 2) Las mejores zonas o calles específicas para salir de fiesta intensa en la noche. Responde estrictamente con formato JSON limpio con dos llaves: 'dia' y 'noche'. No incluyas explicaciones de texto fuera del JSON.";
-            const userPrompt = `Genera el plan de descanso y fiesta para el destino: ${destInput}. Sé extremadamente específico con los nombres de las playas y las calles de fiesta reales de ese lugar. El formato de tu respuesta debe ser exactamente este JSON: {"dia": "nombre de zonas tranquilas y qué hacer", "noche": "calles, clubes o sectores ideales para rumbear"}`;
-
-            try {
-                // Consumo del modelo mediante servidor público de inferencia libre de tokens expuestos
